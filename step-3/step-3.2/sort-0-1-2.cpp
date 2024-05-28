@@ -41,7 +41,19 @@ int lcm(int a, int b) {
     return (a / gcd(a, b)) * b;
 }
 void sortColors(vector<int>&a) {
-    
+    int left = 0, right = a.size()-1, itr = 0;
+    while (itr < a.size() && itr <= right) {
+        if (a[itr] == 2) {
+            swap(a[itr], a[right]);
+            right--;
+        } else if (a[itr] == 1) {
+            itr++;
+        } else {
+            swap(a[itr], a[left]);
+            itr++;
+            left++;
+        }
+    }
 }
 signed main() {
     ios_base::sync_with_stdio(false);
