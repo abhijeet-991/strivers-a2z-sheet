@@ -40,37 +40,34 @@ int gcd(int a, int b) {
 int lcm(int a, int b) {
     return (a / gcd(a, b)) * b;
 }
-class Solution{
-    public:
+class Solution {
+public:
     vector<int> findUnion(int a[], int b[], int n, int m) {
-        vector<int> ans;
+        vector<int>ans;
         int i = 0, j = 0;
-        int last_inserted = INT_MIN;
         while (i < n && j < m) {
-            int next_val;
             if (a[i] < b[j]) {
-                next_val = a[i++];
+                if (ans.empty() || ans.back() != a[i]) {
+                    ans.push_back(a[i]);
+                }
+                i++;
             }
             else {
-                next_val = b[j++];
-            }
-            if (last_inserted != next_val) {
-                ans.push_back(next_val);
-                last_inserted = next_val;
+                if (ans.empty() || ans.back() != b[j]) {
+                    ans.push_back(b[j]);
+                }
+                if (a[i] == b[j]) i++;
+                j++;
             }
         }
         while (i < n) {
-            if (last_inserted != a[i]) {
+            if (ans.empty() || ans.back() != a[i])
                 ans.push_back(a[i]);
-                last_inserted = a[i];
-            }
             i++;
         }
         while (j < m) {
-            if (last_inserted != b[j]) {
+            if (ans.empty() || ans.back() != b[j])
                 ans.push_back(b[j]);
-                last_inserted = b[j];
-            }
             j++;
         }
         return ans;
@@ -88,12 +85,12 @@ void solve() {
     //     int x;cin >> x;
     //     a2.push_back(x);
     // }
-    int a1[] = {-5,-4,-1,1,7};
-    int a2[] = {-3,0,1,8};
+    int a1[] = { 1,2,3 };
+    int a2[] = { 2,3,6 };
     // int a1[] = { 1,2,3,4,5 };
     // int a2[] = { 1,2,3 };
     Solution solution;
-    vector<int> ans = solution.findUnion(a1, a2, 5, 4);
+    vector<int> ans = solution.findUnion(a1, a2, 3, 3);
     for (auto x : ans) {
         cout << x << " ";
     }
